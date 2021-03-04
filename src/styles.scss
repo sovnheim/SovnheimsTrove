@@ -1,6 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~@angular/material/theming";
+
+@include mat-core();
 
 html,
 body {
@@ -10,4 +11,24 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+table {
+  margin: 10px;
+  padding: 5px;
+  border: none;
+  @include mat-elevation(0);
+}
+
+.mat-card {
+  margin: 5px;
+  @include mat-elevation(2);
+}
+
+.mat-cell {
+  padding: 8px 8px 8px 0;
+}
+
+.mat-toolbar {
+  @include mat-elevation(2);
 }
