@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+// import { TableData } from './service/tabledata';
+import { getTableData } from './service/event.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'tableBuilder';
+  title = 'Sovnheim\'s Trove of Not-So-Random Encounters';
+
+  displayedColumns: string[] = ['ID', 'Encounter Name', 'Encounter Description', 'Rarity', 'Encounter Type'];
+
+  dataSource = getTableData();
+  // dataSource = TableData.records;
 }
