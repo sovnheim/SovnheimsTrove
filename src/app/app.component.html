@@ -1,32 +1,48 @@
-<mat-toolbar> {{title}} </mat-toolbar>
+<mat-toolbar color="primary"> {{title}} </mat-toolbar>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<app-table-generator></app-table-generator>
 
-  <ng-container matColumnDef="ID">
-    <th mat-header-cell *matHeaderCellDef> Roll </th>
-    <td mat-cell *matCellDef="let element"> {{element.fields.ID}} </td>
-  </ng-container>
 
-  <ng-container matColumnDef="Rarity">
-    <th mat-header-cell *matHeaderCellDef> Rarity </th>
-    <td mat-cell *matCellDef="let element"> {{element.fields.Rarity}} </td>
-  </ng-container>
+<mat-card>
+  <button mat-button [matMenuTriggerFor]="menu">Table Size</button>
+  <mat-menu #menu="matMenu">
+    <button (click)="onClick(dice)" mat-menu-item *ngFor="let dice of diceTypes"> {{dice}}</button>
+  </mat-menu>
+</mat-card>
 
-  <ng-container matColumnDef="Encounter Name">
-    <th mat-header-cell *matHeaderCellDef> Encounter Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.fields['Encounter Name']}} </td>
-  </ng-container>
 
-  <ng-container matColumnDef="Encounter Type">
-    <th mat-header-cell *matHeaderCellDef> Type </th>
-    <td mat-cell *matCellDef="let element"> {{element.fields['Encounter Type']}} </td>
-  </ng-container>
 
-  <ng-container matColumnDef="Encounter Description">
-    <th mat-header-cell *matHeaderCellDef> Description </th>
-    <td mat-cell *matCellDef="let element"> {{element.fields['Encounter Description']}} </td>
-  </ng-container>
+<mat-card>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="Roll">
+      <th mat-header-cell *matHeaderCellDef> Roll </th>
+      <td mat-cell *matCellDef="let element"> {{element.fields.order}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Rarity">
+      <th mat-header-cell *matHeaderCellDef> Rarity </th>
+      <td mat-cell *matCellDef="let element"> {{element.fields.Rarity}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Encounter Name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.fields['Encounter Name']}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Encounter Type">
+      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <td mat-cell *matCellDef="let element"> {{element.fields['Encounter Type']}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Encounter Description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let element"> {{element.fields['Encounter Description']}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</mat-card>

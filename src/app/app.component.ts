@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-// import { TableData } from './service/tabledata';
-import { getTableData } from './service/event.service';
+import { TableOfEvents, getTableData } from './service/tableOfEvents.service';
+import { DiceTypes } from './models/dice.model';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +8,23 @@ import { getTableData } from './service/event.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  tableSize: Number;
+
+  constructor() {
+    this.tableSize = 10;
+  }
+
   title = 'Sovnheim\'s Trove of Not-So-Random Encounters';
 
-  displayedColumns: string[] = ['ID', 'Encounter Name', 'Encounter Description', 'Rarity', 'Encounter Type'];
+  diceTypes = DiceTypes;
 
-  dataSource = getTableData();
-  // dataSource = TableData.records;
+  displayedColumns: string[] = ['Roll', 'Encounter Name', 'Encounter Description', 'Rarity', 'Encounter Type'];
+
+  events = new TableOfEvents(5);
+
+  dataSource = getTableData(7);
+
+  // static onClick(tableSize: number): void {
+  //   console.log(tableSize);
+  // }
 }
