@@ -1,31 +1,32 @@
+import { shuffleArray } from '../utils/array.utils';
 import { TableData } from './tabledata';
 
 export class TableOfEvents {
   records: any[];
 
-  constructor(tableSize) {
-    this.records = [];
-    let order = 0;
+  constructor(tableSize: number) {
+    // getting records from Airtable
+    this.records = shuffleArray(TableData.records);
 
-    TableData.records.forEach(
+    // implement table size limit
+    this.records.length = tableSize;
+
+    // add order value
+    this.records = TableOfEvents.setRecordsOrder(this.records);
+  }
+
+  static setRecordsOrder(records: any[]): any[] {
+    const orderedRecords = [];
+    let order = 0;
+    records.forEach(
       (record) => {
         order += 1;
-        if (order <= tableSize) {
-          this.records.push({
-            fields: record.fields,
-            order,
-          });
-        }
+        orderedRecords.push({
+          fields: record.fields,
+          order,
+        });
       },
     );
+    return orderedRecords;
   }
-}
-
-export function shuffleArray(array: any[]): any[] {
-  const shuffledArray = [];
-  for (let i = array.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledArray[i], shuffledArray[j]] = [array[j], array[i]];
-  }
-  return shuffledArray;
 }
