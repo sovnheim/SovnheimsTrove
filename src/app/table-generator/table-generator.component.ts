@@ -11,18 +11,16 @@ import { DiceTypes } from '../models/dice.model';
 export class TableGeneratorComponent implements OnInit {
   tableOfEvents: TableOfEvents;
 
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   constructor() {
-    this.tableOfEvents = new TableOfEvents();
+    this.tableOfEvents = new TableOfEvents(10);
   }
 
   ngOnInit(): void {
   }
 
-  // tableResize(tableSize: number): void {
-  //   this.tableSize = tableSize;
-  //   console.log(this.tableSize);
-  // }
+  tableResize(tableSize: number): void {
+    this.tableOfEvents = new TableOfEvents(tableSize);
+  }
 
   diceTypes = DiceTypes;
 
