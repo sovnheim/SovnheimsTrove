@@ -7,7 +7,7 @@
 
 <mat-card>
 
-  <table mat-table [dataSource]="tableOfEvents.records" class="mat-elevation-z8">
+  <table mat-table [dataSource]="records" class="mat-elevation-z8">
 
     <ng-container matColumnDef="Roll">
       <th mat-header-cell *matHeaderCellDef> Roll </th>
@@ -16,7 +16,11 @@
 
     <ng-container matColumnDef="Rarity">
       <th mat-header-cell *matHeaderCellDef> Rarity </th>
-      <td mat-cell *matCellDef="let element"> {{element.fields.Rarity}} </td>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip-list>
+          <mat-chip> {{element.fields.Rarity}} </mat-chip>
+        </mat-chip-list>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="Encounter Name">
@@ -26,7 +30,11 @@
 
     <ng-container matColumnDef="Encounter Type">
       <th mat-header-cell *matHeaderCellDef> Type </th>
-      <td mat-cell *matCellDef="let element"> {{element.fields['Encounter Type']}} </td>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip-list>
+          <mat-chip> {{element.fields['Encounter Type']}}</mat-chip>
+        </mat-chip-list>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="Encounter Description">
