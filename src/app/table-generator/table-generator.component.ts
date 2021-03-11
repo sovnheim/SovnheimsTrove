@@ -1,5 +1,7 @@
 /* eslint-disable class-methods-use-this */
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DiceTypes } from '../models/dice.model';
 import { TableOfEventsService } from '../service/table-of-events.service';
 
@@ -11,7 +13,9 @@ import { TableOfEventsService } from '../service/table-of-events.service';
 export class TableGeneratorComponent implements OnInit {
   records: any;
 
-  constructor(private tableOfEventsService: TableOfEventsService) {}
+  recordstest: any;
+
+  constructor(private httpClient: HttpClient, private tableOfEventsService: TableOfEventsService) {}
 
   ngOnInit(): void {
     this.records = this.tableOfEventsService.getRecords(10);
@@ -19,6 +23,21 @@ export class TableGeneratorComponent implements OnInit {
 
   tableResize(newSize: number): any {
     this.records = this.tableOfEventsService.getRecords(newSize);
+  }
+
+  getAirtableData(): Observable<any> {
+    const options = {
+      headers: {
+        Authorization: 'Bearer key8sQAW2BwXD4bpi',
+      },
+    };
+
+    let observable;
+
+    this.httpClient
+      .get<any[]>('https://api.airtable.com/v0/appTQAkQPNQqFsIJS/Encounter%20Table?maxRecords=10&view=Full%20Table', options);
+
+    return observable;
   }
 
   diceTypes = DiceTypes;
