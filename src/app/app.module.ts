@@ -13,12 +13,12 @@ import { MatChipsModule } from '@angular/material/chips';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TableGeneratorComponent } from './table-generator/table-generator.component';
+import { EncounterTableComponent } from './encounter-table/encounter-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TableGeneratorComponent,
+    EncounterTableComponent,
   ],
   imports: [
     BrowserModule,

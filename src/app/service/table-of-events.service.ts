@@ -1,13 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AirtableData } from '../models/airtableData.model';
 import { shuffleArray } from '../utils/array.utils';
-import { TableData } from '../../assets/data/tabledata';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TableOfEventsService {
-  private databaseSize: number;
-
   private defaultTableSize: 20;
 
   private rarityValues = {
@@ -17,18 +17,27 @@ export class TableOfEventsService {
     'Very Rare': 4,
   };
 
-  getDatabaseSize(): number {
-    return this.databaseSize;
+  constructor(
+    private httpClient: HttpClient,
+  ) {}
+
+  getRecords(): Observable<AirtableData> {
+    const options = {
+      headers: {
+        Authorization: 'Bearer key8sQAW2BwXD4bpi',
+      },
+    };
+
+    return this.httpClient
+      .get<AirtableData>('https://api.airtable.com/v0/appTQAkQPNQqFsIJS/Encounter%20Table?maxRecords=20&view=Full%20Table',
+      options);
   }
 
-  getRecords(tableSize: number): any[] {
+  getFormattedRecords(airTableData: any, tableSize: number): any[] {
     const nbRecords = tableSize || this.defaultTableSize;
 
     // getting records from Airtable
-    const records = shuffleArray(TableData.records);
-
-    // marking database size for future usage
-    this.databaseSize = records.length;
+    const records = shuffleArray(airTableData.records);
 
     // resize table on nbRecords
     const trimmedRecords = records.slice(0, nbRecords);
