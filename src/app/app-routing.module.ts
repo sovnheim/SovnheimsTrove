@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { EncounterTableComponent } from './encounter-table/encounter-table.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: EncounterTableComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

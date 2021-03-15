@@ -10,6 +10,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +32,8 @@ import { EncounterTableComponent } from './encounter-table/encounter-table.compo
     MatMenuModule,
     MatButtonModule,
     MatChipsModule,
+    MatSidenavModule,
+    MatIconModule,
     HttpClientModule,
   ],
   providers: [],

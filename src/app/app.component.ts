@@ -6,11 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  tableSize: Number;
+  events: string[] = [];
 
-  constructor() {
-    this.tableSize = 10;
-  }
+  opened: boolean;
 
-  title = 'Sovnheim\'s Trove of Not-So-Random Encounters';
+  title = 'Sovnheim\'s Trove of D&D Stuff';
 }
