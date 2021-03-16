@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,6 +42,7 @@ import { DiceBoxComponent } from './dice-box/dice-box.component';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonToggleModule,
     FormsModule,
     HttpClientModule,
   ],

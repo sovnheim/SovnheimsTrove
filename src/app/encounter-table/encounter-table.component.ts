@@ -21,6 +21,8 @@ import { TableOfEventsService } from '../service/table-of-events.service';
 export class EncounterTableComponent implements OnInit {
   records: any;
 
+  recordsAvailable: boolean = false;
+
   diceTypes = DiceTypes;
 
   displayedColumns: string[] = ['order', 'Name', 'Rarity', 'Hostility'];
@@ -31,7 +33,8 @@ export class EncounterTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.tableOfEventsService.getRecords().subscribe((data) => {
-      const processedRecords = this.tableOfEventsService.getFormattedRecords(data, 10);
+      const processedRecords = this.tableOfEventsService.getFormattedRecords(data, 6);
+      this.recordsAvailable = true;
       this.records = processedRecords || [];
     });
   }

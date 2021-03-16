@@ -3,22 +3,33 @@
   <mat-menu #menu="matMenu">
     <button
       mat-menu-item
-      *ngFor="let dice of diceTypes"
-      (click)="tableResize(dice)"
-    >
-      {{ dice }}
+      *ngFor="let die of diceTypes"
+      (click)="tableResize(dice)">
+      {{ die }}
     </button>
   </mat-menu>
+
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle *ngFor="let die of diceTypes" >{{ die }}</mat-button-toggle>
+  </mat-button-toggle-group>
+
 </mat-card>
 
 <mat-card>
   <table mat-table
+      *ngIf="recordsAvailable == true"
         [dataSource]="records" multiTemplateDataRows>
     <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+      <!-- other columns -->
       <th mat-header-cell *matHeaderCellDef> {{column}} </th>
       <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+
+      <!-- Index Column-->
+      <th mat-header-cell *matHeaderCellDef> index </th>
+      <td mat-cell *matCellDef="let index = index"> {{index}} </td>
     </ng-container>
 
+    <!-- Single column -->
     <ng-container matColumnDef="expandedDetail">
       <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
         <div class="example-element-detail"
