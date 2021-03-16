@@ -7,12 +7,12 @@ import { DiceRoll, DICE_COMMAND_REGEX } from '../service/dice-roll.service';
   styleUrls: ['./dice-box.component.scss'],
 })
 export class DiceBoxComponent {
-  d: DiceRoll;
+  diceRoll: DiceRoll;
 
   rollStatus: string;
 
   constructor() {
-    this.d = new DiceRoll();
+    this.diceRoll = new DiceRoll();
     this.rollStatus = 'Roll';
   }
 
@@ -27,10 +27,10 @@ export class DiceBoxComponent {
   }
 
   validateDiceRequest(): void {
-    this.d.validCommand = DICE_COMMAND_REGEX.test(this.d.diceCommand);
-    if (this.d.validCommand) {
+    this.diceRoll.validCommand = DICE_COMMAND_REGEX.test(this.diceRoll.diceCommand);
+    if (this.diceRoll.validCommand) {
       this.rollStatus = 'Re-Roll';
-      this.d.executeDiceRoll();
+      this.diceRoll.executeDiceRoll();
     }
   }
 }

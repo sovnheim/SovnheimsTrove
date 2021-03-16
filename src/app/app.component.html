@@ -1,12 +1,12 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="sidenav.toggle()" aria-label="Example icon button with a menu icon">
+  <button mat-icon-button (click)="sidenav.toggle()" aria-label="Menu icon">
     <mat-icon>menu</mat-icon>
   </button>
   <h1>{{title}}</h1>
 </mat-toolbar>
-<mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
-    (closed)="events.push('close!')">
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
 
     <button mat-menu-item routerLink="/">
       <span>Encounter Tables</span>

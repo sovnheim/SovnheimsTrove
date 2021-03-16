@@ -18,8 +18,6 @@ export class DiceRoll {
 
   result: number;
 
-  allPossibleResults: number[];
-
   stats: {
     min: number;
     max: number;
@@ -77,7 +75,7 @@ export class DiceRoll {
     this.parseDiceCommand();
     this.rolledSet = DiceRoll.getRolledSet(this.rollableSet);
     this.updateResult();
-    this.runBasicStats();
+    this.getBasicStats();
   }
 
   getVerboseResult(): string {
@@ -90,7 +88,7 @@ export class DiceRoll {
     return `${this.rolledSet.join('+')} = ${this.result.toString()}`;
   }
 
-  runBasicStats(): void {
+  getBasicStats(): void {
     this.stats = {
       min: this.rollableSet.length + this.modifiers.reduce((a, b) => a + b, 0),
       max: this.rollableSet.reduce((a, b) => a + b, 0),

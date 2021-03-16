@@ -29,7 +29,7 @@ export class TableOfEventsService {
     };
 
     return this.httpClient
-      .get<AirtableData>('https://api.airtable.com/v0/appTQAkQPNQqFsIJS/Encounter%20Table?maxRecords=20&view=Full%20Table',
+      .get<AirtableData>('https://api.airtable.com/v0/appTQAkQPNQqFsIJS/Encounter%20Table?maxRecords=100&view=Full%20Table',
       options);
   }
 
