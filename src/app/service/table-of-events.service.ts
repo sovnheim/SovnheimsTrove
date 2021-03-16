@@ -42,9 +42,8 @@ export class TableOfEventsService {
     // resize table on nbRecords
     const trimmedRecords = records.slice(0, nbRecords);
 
-    // sorting records by rarity
     const mappedRecords = trimmedRecords.map((record) => ({
-      ...record,
+      ...record.fields,
       rarityValue: this.rarityValues[record.fields.Rarity],
     }));
 

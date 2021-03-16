@@ -2,12 +2,11 @@ export type AirtableData = {
   records: {
     id: string;
     fields: {
-      'Encounter Type': string;
-      Tag: string[];
+      Name: string;
+      Description: string;
+      Location: string;
       Rarity: string;
-      'Encounter Description': string;
-      'Event Type': string[];
-      'Encounter Name': string;
+      Tag: string[];
     };
     createdTime: string;
   };
