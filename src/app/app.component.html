@@ -8,15 +8,13 @@
   <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
     (closed)="events.push('close!')">
 
+    <button mat-menu-item routerLink="/">
+      <span>Encounter Tables</span>
+    </button>
 
-  <button mat-menu-item routerLink="/">
-    <span>Dice Roller</span>
-  </button>
-
-  <button mat-menu-item routerLink="/">
-    <span>Encounter Tables</span>
-  </button>
-
+    <button mat-menu-item routerLink="DiceBox">
+      <span>Dice Roller</span>
+    </button>
 
   </mat-sidenav>
 

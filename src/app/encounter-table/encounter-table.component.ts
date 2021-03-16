@@ -34,7 +34,6 @@ export class EncounterTableComponent implements OnInit {
     this.tableOfEventsService.getRecords().subscribe((data) => {
       const processedRecords = this.tableOfEventsService.getFormattedRecords(data, 10);
       this.records = processedRecords || [];
-      console.log(this.records);
     });
   }
 

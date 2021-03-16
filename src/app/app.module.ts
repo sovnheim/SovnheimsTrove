@@ -12,15 +12,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EncounterTableComponent } from './encounter-table/encounter-table.component';
+import { DiceBoxComponent } from './dice-box/dice-box.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EncounterTableComponent,
+    DiceBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +39,9 @@ import { EncounterTableComponent } from './encounter-table/encounter-table.compo
     MatChipsModule,
     MatSidenavModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
     HttpClientModule,
   ],
   providers: [],
