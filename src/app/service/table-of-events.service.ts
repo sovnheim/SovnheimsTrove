@@ -2,14 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AirtableData } from '../models/airtableData.model';
+import { RecordParameters } from '../models/record.model';
 import { shuffleArray } from '../utils/array.utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TableOfEventsService {
-  private defaultTableSize: 20;
-
   private rarityValues = {
     Common: 1,
     Uncommon: 2,
@@ -29,32 +28,39 @@ export class TableOfEventsService {
     };
 
     return this.httpClient
-      .get<AirtableData>('https://api.airtable.com/v0/appTQAkQPNQqFsIJS/Encounter%20Table?maxRecords=100&view=Full%20Table',
+      .get<AirtableData>('https://api.airtable.com/v0/appTQAkQPNQqFsIJS/Encounters?maxRecords=100&view=Full%20Table',
       options);
   }
 
-  getFormattedRecords(airTableData: any, tableSize: number): any[] {
-    const nbRecords = tableSize || this.defaultTableSize;
-
+  getFormattedRecords(airTableData: any, tableParameters: RecordParameters): any[] {
     // getting records from Airtable
-    const records = shuffleArray(airTableData.records);
+    let records = shuffleArray(airTableData.records);
 
-    // resize table on nbRecords
-    const trimmedRecords = records.slice(0, nbRecords);
-
-    const mappedRecords = trimmedRecords.map((record) => ({
+    // flatten
+    records = records.map((record) => ({
       ...record.fields,
-      rarityValue: this.rarityValues[record.fields.Rarity],
     }));
 
-    const orderedRecords = mappedRecords.sort((a, b) => a.rarityValue - b.rarityValue);
+    // apply filters
+    records = records.filter((record) => tableParameters.hostility[record.Hostility]);
+    records = records.filter((record) => tableParameters.rarity[record.Rarity]);
+
+    // resize table on nbRecords
+    records = records.slice(0, tableParameters.tableSize);
+
+    records = records.map((record) => ({
+      ...record,
+      rarityValue: this.rarityValues[record.Rarity],
+    }));
+
+    records = records.sort((a, b) => a.rarityValue - b.rarityValue);
 
     // adding order value
-    const finalRecords = orderedRecords.map((record, index) => ({
+    records = records.map((record, index) => ({
       ...record,
       order: index + 1,
     }));
 
-    return finalRecords;
+    return records;
   }
 }

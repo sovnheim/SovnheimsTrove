@@ -1,32 +1,44 @@
 <mat-card>
-  <button mat-button [matMenuTriggerFor]="menu">Table Size</button>
-  <mat-menu #menu="matMenu">
-    <button
-      mat-menu-item
-      *ngFor="let die of diceTypes"
-      (click)="tableResize(dice)">
-      {{ die }}
-    </button>
-  </mat-menu>
+
+  <h2> Table Size </h2>
 
   <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-    <mat-button-toggle *ngFor="let die of diceTypes" >{{ die }}</mat-button-toggle>
+    <mat-button-toggle *ngFor="let die of diceTypes" (click)="tableResize(die)">{{die}}</mat-button-toggle>
   </mat-button-toggle-group>
+
+  <h2> Rarity </h2>
+
+  <mat-chip-list selectable multiple>
+    <mat-chip *ngFor="let rarity of recordParameterOptions.rarity" [value]="rarity">{{rarity}}</mat-chip>
+  </mat-chip-list>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Rarity</mat-label>
+    <mat-select [formControl]="rarityFormControl" multiple>
+      <mat-option *ngFor="let rarity of recordParameterOptions.rarity" [value]="rarity">{{rarity}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
 </mat-card>
 
 <mat-card>
+  <mat-progress-spinner
+    mode="indeterminate"
+    *ngIf="recordsAvailable == false">
+  </mat-progress-spinner>
+
   <table mat-table
       *ngIf="recordsAvailable == true"
         [dataSource]="records" multiTemplateDataRows>
+
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef > index </th>
+      <td mat-cell *matCellDef="let index = index"> {{index}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
-      <!-- other columns -->
       <th mat-header-cell *matHeaderCellDef> {{column}} </th>
       <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-
-      <!-- Index Column-->
-      <th mat-header-cell *matHeaderCellDef> index </th>
-      <td mat-cell *matCellDef="let index = index"> {{index}} </td>
     </ng-container>
 
     <!-- Single column -->

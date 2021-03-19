@@ -14,8 +14,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormControl } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,7 +46,11 @@ import { DiceBoxComponent } from './dice-box/dice-box.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonToggleModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule,
     FormsModule,
+    FormControl,
     HttpClientModule,
   ],
   providers: [],
