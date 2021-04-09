@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import {
   animate,
   state,
@@ -8,9 +7,13 @@ import {
   trigger,
 } from '@angular/animations';
 
+import { CookieService } from 'ngx-cookie-service';
+import { FormControl } from '@angular/forms';
 import { DiceTypes } from '../models/dice.model';
 import { TableOfEventsService } from '../service/table-of-events.service';
-import { RecordParameters, RecordParameterOptions, RecordData } from '../models/record.model';
+import {
+  RecordsParameters, RecordParameterOptions, RecordData, RecordDefaultParameters,
+} from '../models/record.model';
 
 @Component({
   selector: 'app-encounter-table',
@@ -30,51 +33,61 @@ export class EncounterTableComponent implements OnInit {
 
   records: RecordData;
 
+  recordsParameters: RecordsParameters = RecordDefaultParameters;
+
   diceTypes = DiceTypes;
-
-  displayedColumns: string[] = ['order', 'Name', 'Rarity', 'Hostility'];
-
-  recordParameterOptions = RecordParameterOptions;
 
   rarityFormControl = new FormControl();
 
-  tableParameters : RecordParameters = {
-    tableSize: 6,
-    hostility:
-    {
-      Friendly: true,
-      Neutral: true,
-      Hostile: true,
-    },
-    rarity: {
-      Common: true,
-      Uncommon: true,
-      Rare: true,
-      'Very Rare': true,
-    },
-  };
+  recordParameterOptions = RecordParameterOptions;
+
+  displayedColumns: string[] = ['order', 'Name', 'Rarity', 'Hostility'];
 
   constructor(
     private tableOfEventsService: TableOfEventsService,
+    private cookieService: CookieService,
   ) {}
 
   ngOnInit(): void {
-    this.tableOfEventsService.getRecords().subscribe((data) => {
-      const processedRecords = this.tableOfEventsService
-        .getFormattedRecords(data, this.tableParameters);
-      this.recordsAvailable = true;
-      this.records = processedRecords || [];
-    });
+    if (this.cookieService.check('encounterTableCookie')) {
+      const savedRecordsIds = JSON.parse(this.cookieService.get('encounterTableCookie'));
+
+      this.tableOfEventsService.getRecords().subscribe((data) => {
+        this.records = this.tableOfEventsService
+          .getRecordsFromCookies(data, savedRecordsIds);
+        this.recordsAvailable = true;
+      });
+    } else {
+      this.tableOfEventsService.getRecords().subscribe((data) => {
+        this.records = this.tableOfEventsService
+          .getFormattedRecords(data, RecordDefaultParameters);
+        this.recordsAvailable = true;
+        this.saveTableToCookies();
+      });
+    }
   }
 
-  tableResize(newSize: number): void {
+  setTableSize(newSize: number): void {
+    this.recordsParameters.tableSize = newSize;
+    this.reloadTable();
+  }
+
+  saveTableToCookies(): void {
+    const tableRecordsIds = [];
+    this.records.forEach((record) => tableRecordsIds.push(record.recordId));
+
+    this.cookieService.set('encounterTableCookie', JSON.stringify(tableRecordsIds));
+  }
+
+  reloadTable(): void {
     this.recordsAvailable = false;
-    this.tableParameters.tableSize = newSize;
-    this.tableOfEventsService.getRecords().subscribe((data) => {
-      const processedRecords = this.tableOfEventsService
-        .getFormattedRecords(data, this.tableParameters);
-      this.records = processedRecords || [];
-      this.recordsAvailable = true;
-    });
+    this.tableOfEventsService
+      .getRecords()
+      .subscribe((data) => {
+        this.records = this.tableOfEventsService
+          .getFormattedRecords(data, this.recordsParameters);
+        this.recordsAvailable = true;
+        this.saveTableToCookies();
+      });
   }
 }
