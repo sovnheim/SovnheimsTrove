@@ -18,6 +18,7 @@ export class DiceBoxComponent {
 
   onClick(): void {
     this.validateDiceRequest();
+    console.log('test');
   }
 
   onKey(event: KeyboardEvent): void {
@@ -27,7 +28,9 @@ export class DiceBoxComponent {
   }
 
   validateDiceRequest(): void {
-    this.diceRoll.validCommand = DICE_COMMAND_REGEX.test(this.diceRoll.diceCommand);
+    this.diceRoll.validCommand = DICE_COMMAND_REGEX.test(
+      this.diceRoll.diceCommand
+    );
     if (this.diceRoll.validCommand) {
       this.rollStatus = 'Re-Roll';
       this.diceRoll.executeDiceRoll();
